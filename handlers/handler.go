@@ -6,7 +6,6 @@ import (
     "net/http"
     "github.com/gorilla/mux"
     "test/models"
-	"test/cmd"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +13,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostsHandler(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(posts)
+	json.NewEncoder(w).Encode(models.Posts)
 }
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +22,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 
 	var post models.Post
 
-	for _, p := range posts {
+	for _, p := range models.Posts {
 		if p.ID == id {
 			post = p
 			break
@@ -33,16 +32,16 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UsersHandler(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(users)
+	json.NewEncoder(w).Encode(models.Users)
 }
 
 func UserHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	var user User
+	var user models.User
 
-	for _, u := range users {
+	for _, u := range models.Users {
 		if u.ID == id {
 			user = u
 			break
